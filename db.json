@@ -4,16 +4,16 @@
       "id": "1",
       "nomPlat": "Tomato Soap",
       "allergicIngredients": [
-        { "id": 1, "lactose": "1", "needDrop": "false" },
-        { "id": 2, "tomato": "2", "needDrop": "false" },
-        { "id": 3, "gluten": "2", "needDrop": "true" },
-        { "id": 4, "peanuts": "1", "needDrop": "true" },
-        { "id": 5, "soy": "1", "needDrop": "false" },
-        { "id": 6, "shellfish": "2", "needDrop": "true" },
-        { "id": 7, "egg": "1", "needDrop": "false" },
-        { "id": 8, "tree_nuts": "1", "needDrop": "true" },
-        { "id": 9, "fish": "1", "needDrop": "true" },
-        { "id": 10, "wheat": "2", "needDrop": "false" }
+        { "id": 1, "name": "milk", "  ": "1", "needDrop": "false" },
+        { "id": 2, "name": "tomato", "tomato": "2", "needDrop": "false" },
+        { "id": 3, "name": "gluten", "gluten": "2", "needDrop": "true" },
+        { "id": 4, "name": "peanuts", "peanuts": "1", "needDrop": "true" },
+        { "id": 5, "name": "soy", "soy": "1", "needDrop": "false" },
+        { "id": 6, "name": "shellfish", "shellfish": "2", "needDrop": "true" },
+        { "id": 7, "name": "egg", "egg": "1", "needDrop": "false" },
+        { "id": 8, "name": "tree nuts", "tree_nuts": "1", "needDrop": "true" },
+        { "id": 9, "name": "fish", "fish": "1", "needDrop": "true" },
+        { "id": 10, "name": "whwat", "wheat": "2", "needDrop": "false" }
       ]
     },
     {

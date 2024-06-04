@@ -7,8 +7,7 @@ const plats = ref(null)
 onMounted(() => {
   EventPlats.getPlats()
     .then((response) => {
-      plats.value = response.value
-      console.log(plats.value)
+      plats.value = response.data
     })
     .catch((error) => {
       console.log(error)
@@ -17,6 +16,7 @@ onMounted(() => {
 </script>
 <template>
   <ul>
-    <li v-for="plat in plats"></li>
+    <li v-for="plat in plats" v-bind:key="plat.id">{{ plat.nomPlat }}</li>
+    <li v-for="plat in plats">{{ plat.allergicIngredients.name }}</li>
   </ul>
 </template>
