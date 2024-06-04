@@ -1,5 +1,9 @@
-<script setup></script>
+<script setup>
+import ListPlat from '@/components/ListPlat.vue'
+</script>
 
 <template>
-  <main></main>
+  <main>
+    <ListPlat></ListPlat>
+  </main>
 </template>
