@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu Scanner</title>
+    <style>
+      .allergic {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Scanner le menu</h1>
+    <input type="file" id="qrInput" accept="image/*" />
+    <h2>Introduire les allergies</h2>
+    <form id="allergyForm">
+      <label>
+        <input type="checkbox" name="allergy" value="lactose" /> Lactose
+      </label>
+      <label>
+        <input type="checkbox" name="allergy" value="tomato" /> Tomatos
+      </label>
+      <!-- Añadir más alergias según sea necesario -->
+      <button type="submit">Submit</button>
+    </form>
+    <div id="menuDisplay">
+      <h1>menu</h1>
+      <p>Plat 1</p>
+      <p>Plat 1</p>
+      <p>Plat 1</p>
+      <p>Plat 1</p>
+      <p>Plat 1</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+
+    <script>
+      document.getElementById("qrInput").addEventListener("change", scanQRCode);
+      document
+        .getElementById("allergyForm")
+        .addEventListener("submit", handleFormSubmit);
+
+      let menuData = null;
+
+      function scanQRCode(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function () {
+          const img = new Image();
+          img.onload = function () {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img, 0, 0);
+            const imageData = context.getImageData(
+              0,
+              0,
+              canvas.width,
+              canvas.height
+            );
+            const qrCode = jsQR(imageData.data, canvas.width, canvas.height);
+            if (qrCode) {
+              fetchMenu(qrCode.data);
+            } else {
+              alert("No se pudo leer el código QR.");
+            }
+          };
+          img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function fetchMenu(url) {
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error en la obtención del menú");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            menuData = data.menu;
+            displayMenu(menuData);
+          })
+          .catch((error) => {
+            console.error("Error al obtener el menú:", error);
+            alert("Error al obtener el menú.");
+          });
+      }
+
+      function handleFormSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const allergies = formData.getAll("allergy");
+        highlightAllergicDishes(menuData, allergies);
+      }
+
+      function displayMenu(menu) {
+        const menuDisplay = document.getElementById("menuDisplay");
+        menuDisplay.innerHTML = menu
+          .map((dish) => `<p data-id="${dish._id}">${dish.nomPlat}</p>`)
+          .join("");
+      }
+
+      function highlightAllergicDishes(menu, allergies) {
+        if (!menu) return;
+        menu.forEach((dish) => {
+          const dishElement = document.querySelector(`[data-id="${dish._id}"]`);
+          const isAllergic = dish.allergicIngredients.some((ingredient) =>
+            allergies.some(
+              (allergy) =>
+                ingredient.hasOwnProperty(allergy) &&
+                ingredient[allergy] !== "0"
+            )
+          );
+          if (isAllergic) {
+            dishElement.classList.add("allergic");
+          } else {
+            dishElement.classList.remove("allergic");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
