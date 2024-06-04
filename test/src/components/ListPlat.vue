@@ -8,16 +8,15 @@ onMounted(() => {
   EventPlats.getPlats()
     .then((response) => {
       plats.value = response.value
+      console.log(plats.value)
     })
     .catch((error) => {
       console.log(error)
     })
 })
-
-console.log(plats.value)
 </script>
 <template>
   <ul>
-    <li v-for="plat in plats">{{ plat }}</li>
+    <li v-for="plat in plats"></li>
   </ul>
 </template>
