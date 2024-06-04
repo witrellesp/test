@@ -1,7 +1,7 @@
 {
   "plats": [
     {
-      "_id": "1",
+      "id": "1",
       "nomPlat": "Tomato Soap",
       "allergicIngredients": [
         { "id": 1, "lactose": "1", "needDrop": "false" },
@@ -17,7 +17,7 @@
       ]
     },
     {
-      "_id": "2",
+      "id": "2",
       "nomPlat": "Pizza",
       "allergicIngredients": [
         { "id": 1, "lactose": "1", "needDrop": "false" },

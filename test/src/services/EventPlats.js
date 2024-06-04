@@ -9,6 +9,6 @@ const apiClient = axios.create({
 })
 export default {
   getPlats() {
-    return apiClient.get('/menu')
+    return apiClient.get('/plats')
   }
 }
